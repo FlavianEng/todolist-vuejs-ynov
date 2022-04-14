@@ -1,6 +1,7 @@
 export interface Task {
   assignee: string;
-  estimatedTime: number;
-  isChecked: boolean;
+  estimatedTime: string;
+  id: string;
+  isDone: boolean;
   title: string;
 }

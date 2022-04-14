@@ -18,7 +18,7 @@
         @selectValue="updateAssignee"
         :isRequired="true" />
       <button
-        class="py-2 px-4 font-bold text-gradient whitespace-nowrap"
+        class="py-2 px-4 font-bold text-gradient whitespace-nowrap rounded-lg"
         type="button"
         @click="createTask">
         Ajouter la tâche
@@ -36,6 +36,7 @@
 import CustomInput from '@/components/CustomInput.vue';
 import CustomSelect from '@/components/CustomSelect.vue';
 import { defineComponent } from 'vue';
+import { nanoid } from 'nanoid';
 
 export default defineComponent({
   title: 'TodoForm',
@@ -47,7 +48,7 @@ export default defineComponent({
     return {
       assignee: '' as string,
       errorMessage: null as string | null,
-      estimatedTime: null as number | null,
+      estimatedTime: null as string | null,
       persons: [
         { key: 'Cindy', value: 'Cindy' },
         { key: 'Priscillya', value: 'Priscillya' },
@@ -64,7 +65,7 @@ export default defineComponent({
         !this.assignee ||
         this.assignee.length < 1 ||
         !this.estimatedTime ||
-        this.estimatedTime < 1 ||
+        this.estimatedTime.length < 1 ||
         !this.title ||
         this.title.length < 1
       ) {
@@ -76,7 +77,8 @@ export default defineComponent({
       const newTask = {
         assignee: this.assignee,
         estimatedTime: this.estimatedTime,
-        isChecked: false,
+        id: nanoid(),
+        isDone: false,
         title: this.title,
       };
 
@@ -85,7 +87,7 @@ export default defineComponent({
     updateAssignee(newValue: string) {
       this.assignee = newValue;
     },
-    updateEstimatedTime(newValue: number) {
+    updateEstimatedTime(newValue: string) {
       this.estimatedTime = newValue;
     },
     updateName(newValue: string) {

@@ -3,14 +3,19 @@
     <todo-form @taskCreated="addTask" />
 
     <div class="flex flex-col gap-y-4">
-      <todo
+      <div
         class="p-2 rounded-lg odd:bg-pink-200 even:bg-violet-200"
-        v-for="({ assignee, estimatedTime, isChecked, title }, index) in arrayOfTask"
-        :key="index"
-        :title="title"
-        :estimatedTime="estimatedTime"
-        :isChecked="isChecked"
-        :assignee="assignee" />
+        v-for="({ assignee, estimatedTime, id, isDone, title }, index) in arrayOfTask"
+        :key="index">
+        <todo
+          :id="id"
+          :title="title"
+          :estimatedTime="estimatedTime"
+          :isDone="isDone"
+          :assignee="assignee"
+          @deleteTask="removeTask"
+          @toggleTaskStatus="toggleTaskStatus" />
+      </div>
     </div>
   </div>
 </template>
@@ -32,6 +37,17 @@ export default defineComponent({
   methods: {
     addTask(newTask: Task) {
       this.arrayOfTask.push(newTask);
+    },
+    removeTask(task: Task) {
+      const index = this.arrayOfTask.indexOf(task);
+      this.arrayOfTask.splice(index, 1);
+    },
+    // TASK WIP
+    toggleTaskStatus(task: Task) {
+      task.isDone = !task.isDone;
+
+      const index = this.arrayOfTask.indexOf(task);
+      this.arrayOfTask.splice(index, 1, task);
     },
   },
 });
