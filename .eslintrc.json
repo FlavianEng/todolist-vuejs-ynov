@@ -150,6 +150,57 @@
         "allowSeparatedGroups": true,
         "ignoreCase": true
       }
+    ],
+    "vue/sort-keys": [
+      "error",
+      "asc",
+      {
+        "caseSensitive": true,
+        "ignoreChildrenOf": ["model"],
+        "ignoreGrandchildrenOf": ["computed", "directives", "inject", "props", "watch"],
+        "minKeys": 2,
+        "natural": false
+      }
+    ],
+    "vue/order-in-components": [
+      "error",
+      {
+        "order": [
+          "name",
+          ["components", "directives", "filters"],
+          ["props", "propsData"],
+          "data",
+          "computed",
+          "methods",
+          "watch",
+          "emits",
+          "asyncData",
+          "el",
+          "extends",
+          "fetch",
+          "functional",
+          "head",
+          "inheritAttrs",
+          "key",
+          "layout",
+          "LIFECYCLE_HOOKS",
+          "loading",
+          "middleware",
+          "mixins",
+          "model",
+          "parent",
+          "renderError",
+          "ROUTER_GUARDS",
+          "scrollToTop",
+          "setup",
+          "transition",
+          "validate",
+          "watchQuery",
+          ["delimiters", "comments"],
+          ["provide", "inject"],
+          ["template", "render"]
+        ]
+      }
     ]
   }
 }

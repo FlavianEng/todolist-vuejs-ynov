@@ -1,7 +1,6 @@
 <script lang="ts">
-import { RouterLink, RouterView } from 'vue-router';
-import { routeNames } from './router/index';
 import { defineComponent } from 'vue';
+import { routeNames } from './router/index';
 
 export default defineComponent({
   data() {
@@ -15,17 +14,13 @@ export default defineComponent({
 <template>
   <header class="flex justify-center items-center flex-col pt-8">
     <div>
-      <RouterLink
-        to="/"
-        class="text-6xl bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
-        Title
-      </RouterLink>
+      <RouterLink to="/" class="text-6xl font-bold text-gradient"> To-do </RouterLink>
 
-      <nav class="flex w-full py-2 justify-evenly">
+      <!-- <nav class="flex w-full py-2 justify-evenly">
         <RouterLink :to="routeNames.page1" class="font-semibold text-pink-500 hover:text-violet-500"
           >Page 1</RouterLink
         >
-      </nav>
+      </nav> -->
     </div>
   </header>
 
