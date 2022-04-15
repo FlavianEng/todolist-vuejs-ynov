@@ -37,6 +37,8 @@ import CustomInput from '@/components/CustomInput.vue';
 import CustomSelect from '@/components/CustomSelect.vue';
 import { defineComponent } from 'vue';
 import { nanoid } from 'nanoid';
+import store from '@/store';
+import type { Task } from '@/models/task.model';
 
 export default defineComponent({
   title: 'TodoForm',
@@ -71,6 +73,21 @@ export default defineComponent({
       ) {
         setTimeout(() => (this.errorMessage = null), 5000);
         this.errorMessage = '💣 Veuillez remplir tous les champs !';
+        return;
+      }
+
+      const arrayOfAssigneeEstimatedTime = store.getters['todoStore/todos']
+        .filter((task: Task) => task.assignee === this.assignee)
+        .map((task: Task) => task.estimatedTime);
+
+      const estimatedTimeForTaskAlreadyCreated = arrayOfAssigneeEstimatedTime.reduce(
+        (acc: string, current: string) => +acc + +current,
+      );
+      const totalEstimatedTime = +estimatedTimeForTaskAlreadyCreated + +this.estimatedTime;
+
+      if (totalEstimatedTime > 10) {
+        setTimeout(() => (this.errorMessage = null), 5000);
+        this.errorMessage = `💣 ${this.assignee} est trop occupé.e !`;
         return;
       }
 
