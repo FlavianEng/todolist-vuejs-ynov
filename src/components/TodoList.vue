@@ -1,4 +1,5 @@
 <template>
+  <edit-form :isEditing="isEditing" @cancelEdit="cancelEdit" :task="editedTask" />
   <div class="flex flex-col gap-y-8">
     <todo-form @taskCreated="addTask" />
 
@@ -44,6 +45,7 @@
           :isDone="isDone"
           :assignee="assignee"
           @selectTask="selectTask"
+          @editTask="editTask"
           @deleteTask="removeTask"
           @toggleTaskStatus="toggleTaskStatus" />
       </div>
@@ -60,6 +62,7 @@
 <script lang="ts">
 import type { Task, TaskVisibility } from '../models/task.model';
 import { defineComponent } from 'vue';
+import EditForm from './EditForm.vue';
 import store from '@/store';
 import Todo from './Todo.vue';
 import TodoForm from './TodoForm.vue';
@@ -72,10 +75,12 @@ const filters = {
 
 export default defineComponent({
   name: 'TodoList',
-  components: { Todo, TodoForm },
+  components: { EditForm, Todo, TodoForm },
   data() {
     return {
       arrayOfTask: store.getters['todoStore/todos'] as Task[],
+      editedTask: {} as Task,
+      isEditing: false,
       selectedTasks: [] as Task[],
       visibleTasks: 'all' as TaskVisibility,
     };
@@ -90,13 +95,23 @@ export default defineComponent({
       this.selectedTasks = [];
       store.commit('todoStore/addTodo', newTask);
     },
+    cancelEdit() {
+      this.isEditing = false;
+      this.editedTask = {};
+    },
     changeTaskVisibility(newVisibility: TaskVisibility): void {
       this.selectedTasks = [];
       this.visibleTasks = newVisibility as TaskVisibility;
     },
-    getIndexOfTask(task: Task): number {
-      const taskInArrayOfTask = this.arrayOfTask.find((todo) => todo.id === task.id);
-      return this.arrayOfTask.indexOf(taskInArrayOfTask);
+    editTask(taskId: string): void {
+      this.selectedTasks = [];
+      this.isEditing = true;
+
+      const taskToEdit = this.arrayOfTask.find((task: Task) => task.id === taskId);
+
+      if (!taskToEdit) return;
+
+      this.editedTask = taskToEdit;
     },
     getIsSelected(taskId: string): boolean {
       return this.selectedTasks.some((task: Task) => task.id == taskId);
@@ -106,8 +121,7 @@ export default defineComponent({
     },
     removeTask(task: Task): void {
       this.selectedTasks = [];
-      const index = this.getIndexOfTask(task);
-      store.commit('todoStore/removeTodo', index);
+      store.commit('todoStore/removeTodo', task);
     },
     selectTask(taskId: string): void {
       const taskInArrayOfTask = this.arrayOfTask.find((task: Task) => task.id === taskId);

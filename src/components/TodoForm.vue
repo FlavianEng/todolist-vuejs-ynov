@@ -17,12 +17,7 @@
         title="assignee"
         @selectValue="updateAssignee"
         :isRequired="true" />
-      <button
-        class="py-2 px-4 font-bold text-gradient whitespace-nowrap rounded-lg"
-        type="button"
-        @click="createTask">
-        Ajouter la tâche
-      </button>
+      <button class="btn-gradient" type="button" @click="createTask">Ajouter la tâche</button>
     </div>
     <p
       class="my-4 text-4xl font-semibold text-pink-500"

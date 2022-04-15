@@ -15,8 +15,13 @@ export default {
     addTodo(state: todoState, todo: Task): void {
       state.todos.push(todo);
     },
-    removeTodo(state: todoState, taskIndex: number): void {
-      state.todos.splice(taskIndex, 1);
+    editTodo(state: todoState, task: Task): void {
+      const index = state.todos.findIndex((todo) => todo.id === task.id);
+      state.todos.splice(index, 1, task);
+    },
+    removeTodo(state: todoState, task: Task): void {
+      const index = state.todos.findIndex((todo) => todo.id === task.id);
+      state.todos.splice(index, 1);
     },
     updateTodo(state: todoState, task: Task): void {
       const todoToUpdate = state.todos.find((todo) => todo.id === task.id);

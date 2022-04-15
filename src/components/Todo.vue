@@ -14,12 +14,20 @@
     <p>⏲ {{ estimatedTime }} heure.s</p>
     <span>|</span>
     <p>🙍‍♂️ Assigné à : {{ assignee }}</p>
-    <button
-      type="button"
-      class="text-sm ml-auto px-4 hover:animate-spin-fast"
-      @click.stop="this.$emit('deleteTask', { assignee, estimatedTime, id, isDone, title })">
-      ✖
-    </button>
+    <div class="ml-auto">
+      <button
+        type="button"
+        class="text-sm ml-auto px-4 hover:animate-spin-fast"
+        @click.stop="this.$emit('editTask', id)">
+        ✏
+      </button>
+      <button
+        type="button"
+        class="text-sm ml-auto px-4 hover:animate-spin-fast"
+        @click.stop="this.$emit('deleteTask', { assignee, estimatedTime, id, isDone, title })">
+        ✖
+      </button>
+    </div>
   </div>
 </template>
 
@@ -38,6 +46,6 @@ export default defineComponent({
   data() {
     return {};
   },
-  emits: ['deleteTask', 'toggleTaskStatus', 'selectTask'],
+  emits: ['deleteTask', 'toggleTaskStatus', 'selectTask', 'editTask'],
 });
 </script>
