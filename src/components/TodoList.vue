@@ -35,18 +35,21 @@ export default defineComponent({
     };
   },
   methods: {
-    addTask(newTask: Task) {
+    addTask(newTask: Task): void {
       this.arrayOfTask.push(newTask);
     },
-    removeTask(task: Task) {
-      const index = this.arrayOfTask.indexOf(task);
+    getIndexOfTask(task: Task): number {
+      const taskInArrayOfTask = this.arrayOfTask.find((todo) => todo.id === task.id);
+      return this.arrayOfTask.indexOf(taskInArrayOfTask);
+    },
+    removeTask(task: Task): void {
+      const index = this.getIndexOfTask(task);
       this.arrayOfTask.splice(index, 1);
     },
-    // TASK WIP
-    toggleTaskStatus(task: Task) {
+    toggleTaskStatus(task: Task): void {
       task.isDone = !task.isDone;
 
-      const index = this.arrayOfTask.indexOf(task);
+      const index = this.getIndexOfTask(task);
       this.arrayOfTask.splice(index, 1, task);
     },
   },
