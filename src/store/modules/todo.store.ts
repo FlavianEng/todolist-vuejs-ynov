@@ -28,7 +28,7 @@ export default {
     return {
       todos: [
         {
-          assignee: 'Max',
+          assignee: 'Célestin',
           estimatedTime: '1',
           id: nanoid(),
           isDone: false,
@@ -42,32 +42,11 @@ export default {
           title: 'Allez à la salle',
         },
         {
-          assignee: 'Quentin',
+          assignee: 'Titi',
           estimatedTime: '3',
           id: nanoid(),
           isDone: false,
           title: 'Dire bonjour',
-        },
-        {
-          assignee: 'Flavian',
-          estimatedTime: '1',
-          id: nanoid(),
-          isDone: true,
-          title: 'Arriver en retard',
-        },
-        {
-          assignee: 'Priscillya',
-          estimatedTime: '15',
-          id: nanoid(),
-          isDone: false,
-          title: 'Caresser ses chats',
-        },
-        {
-          assignee: 'Gabin',
-          estimatedTime: '120',
-          id: nanoid(),
-          isDone: false,
-          title: 'Easter egg',
         },
       ],
     };
