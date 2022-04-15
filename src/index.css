@@ -18,6 +18,14 @@
     @apply bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500;
   }
 
+  .btn-gradient {
+    @apply text-white font-bold py-2 px-4 rounded-lg bckg-gradient;
+  }
+
+  .bckg-gradient {
+    @apply bg-gradient-to-r from-pink-500 to-violet-500;
+  }
+
   .animate-spin-fast {
     animation: spin 300ms linear infinite;
   }

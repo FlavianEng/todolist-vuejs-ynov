@@ -5,3 +5,5 @@ export interface Task {
   isDone: boolean;
   title: string;
 }
+
+export type TaskVisibility = 'undone' | 'all' | 'done';

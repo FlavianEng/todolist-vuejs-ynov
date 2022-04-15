@@ -7,11 +7,11 @@
       <span class="group-hover:animate-spin-fast" v-if="!isDone">✔</span>
       <span class="group-hover:animate-spin-fast" v-if="isDone">❌</span>
     </button>
-    <p class="font-semibold text-violet-500">Tâche : {{ title }}</p>
+    <p class="font-semibold text-violet-500">🧾 Tâche : {{ title }}</p>
     <span>|</span>
-    <p>{{ estimatedTime }} heure.s</p>
+    <p>⏲ {{ estimatedTime }} heure.s</p>
     <span>|</span>
-    <p>Assigné à : {{ assignee }}</p>
+    <p>🙍‍♂️ Assigné à : {{ assignee }}</p>
     <button
       type="button"
       class="text-sm ml-auto px-4 hover:animate-spin-fast"
