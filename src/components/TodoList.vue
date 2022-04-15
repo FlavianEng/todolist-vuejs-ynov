@@ -60,7 +60,7 @@
 <script lang="ts">
 import type { Task, TaskVisibility } from '../models/task.model';
 import { defineComponent } from 'vue';
-import { nanoid } from 'nanoid';
+import store from '@/store';
 import Todo from './Todo.vue';
 import TodoForm from './TodoForm.vue';
 
@@ -75,43 +75,7 @@ export default defineComponent({
   components: { Todo, TodoForm },
   data() {
     return {
-      arrayOfTask: [
-        {
-          assignee: 'Max',
-          estimatedTime: '1',
-          id: nanoid(),
-          isDone: false,
-          title: 'Faire le singe',
-        },
-        {
-          assignee: 'Cindy',
-          estimatedTime: '2',
-          id: nanoid(),
-          isDone: true,
-          title: 'Allez à la salle',
-        },
-        {
-          assignee: 'Quentin',
-          estimatedTime: '3',
-          id: nanoid(),
-          isDone: false,
-          title: 'Dire bonjour',
-        },
-        {
-          assignee: 'Flavian',
-          estimatedTime: '1',
-          id: nanoid(),
-          isDone: true,
-          title: 'Arriver en retard',
-        },
-        {
-          assignee: 'Priscillya',
-          estimatedTime: '15',
-          id: nanoid(),
-          isDone: false,
-          title: 'Caresser ses chats',
-        },
-      ] as Task[],
+      arrayOfTask: store.getters['todoStore/todos'] as Task[],
       selectedTasks: [] as Task[],
       visibleTasks: 'all' as TaskVisibility,
     };
@@ -124,7 +88,7 @@ export default defineComponent({
   methods: {
     addTask(newTask: Task): void {
       this.selectedTasks = [];
-      this.arrayOfTask.push(newTask);
+      store.commit('todoStore/addTodo', newTask);
     },
     changeTaskVisibility(newVisibility: TaskVisibility): void {
       this.selectedTasks = [];
@@ -138,12 +102,12 @@ export default defineComponent({
       return this.selectedTasks.some((task: Task) => task.id == taskId);
     },
     removeSelectedTasks(): void {
-      this.selectedTasks.forEach((task) => this.removeTask(task));
+      this.selectedTasks.forEach((task: Task) => this.removeTask(task));
     },
     removeTask(task: Task): void {
       this.selectedTasks = [];
       const index = this.getIndexOfTask(task);
-      this.arrayOfTask.splice(index, 1);
+      store.commit('todoStore/removeTodo', index);
     },
     selectTask(taskId: string): void {
       const taskInArrayOfTask = this.arrayOfTask.find((task: Task) => task.id === taskId);
@@ -160,10 +124,7 @@ export default defineComponent({
     },
     toggleTaskStatus(task: Task): void {
       this.selectedTasks = [];
-      task.isDone = !task.isDone;
-
-      const index = this.getIndexOfTask(task);
-      this.arrayOfTask.splice(index, 1, task);
+      store.commit('todoStore/updateTodo', task);
     },
   },
 });
