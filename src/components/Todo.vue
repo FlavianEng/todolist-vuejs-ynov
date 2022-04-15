@@ -1,9 +1,11 @@
 <template>
-  <div class="flex gap-x-4 justify-start items-center">
+  <div
+    class="flex gap-x-4 justify-start items-center cursor-pointer"
+    @click="this.$emit('selectTask', id)">
     <button
       type="button"
       class="group px-2 py-1 bg-slate-100 rounded-lg flex justify-center items-center"
-      @click="this.$emit('toggleTaskStatus', { assignee, estimatedTime, id, isDone, title })">
+      @click.stop="this.$emit('toggleTaskStatus', { assignee, estimatedTime, id, isDone, title })">
       <span class="group-hover:animate-spin-fast" v-if="!isDone">✔</span>
       <span class="group-hover:animate-spin-fast" v-if="isDone">❌</span>
     </button>
@@ -15,7 +17,7 @@
     <button
       type="button"
       class="text-sm ml-auto px-4 hover:animate-spin-fast"
-      @click="this.$emit('deleteTask', { assignee, estimatedTime, id, isDone, title })">
+      @click.stop="this.$emit('deleteTask', { assignee, estimatedTime, id, isDone, title })">
       ✖
     </button>
   </div>
@@ -36,6 +38,6 @@ export default defineComponent({
   data() {
     return {};
   },
-  emits: ['deleteTask', 'toggleTaskStatus'],
+  emits: ['deleteTask', 'toggleTaskStatus', 'selectTask'],
 });
 </script>
